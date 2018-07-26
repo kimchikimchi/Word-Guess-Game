@@ -1,0 +1,18 @@
+* {
+    color: grey;
+    font-size: 18pt;
+    font-family: 'Gaegu', cursive;
+}
+
+body {
+    background-color: black;
+}
+
+img {
+
+}
+
+.container {
+    width: 500px;
+    margin: 0 auto;
+}
