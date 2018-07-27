@@ -10,15 +10,13 @@ var chosenWord;             // computer selects this randomly from list above.
 var triedLetters;           // collect failed, tried letters.
 var matchedLetterIndices;   // stores array indices of correctly guessed ones.
 
+// Pulling query selector values into vars for conciseness
+var retries = document.querySelector("#retries");
+var guessed_letter = document.querySelector("#guessed_letters");
+var guessword = document.querySelector("#guessword");
 
-/*
-    Helper function.
 
-    Draw user displayed blanks. For any known letters, draw them.
-    Otherwise, leave them as _
-
-    Function is called first when page loaded then every time key is pressed.
-*/
+// Init the board.
 
 function resetGame() {
     tryRemains = 10;
@@ -32,6 +30,15 @@ function resetGame() {
     retries.textContent = tryRemains;
     guessed_letters.textContent = '';
 }
+
+/*
+    Helper function.
+
+    Draw user displayed blanks. For any known letters, draw them.
+    Otherwise, leave them as _
+
+    Function is called first when page loaded then every time key is pressed.
+*/
 
 function drawGuessword () {
     guessword.textContent = '';
@@ -51,6 +58,19 @@ function drawGuessword () {
         }
     }
 }
+// draws list of incorrectly guessed letters.
+
+function drawWrongGuess(char) {
+    // If the letter is not, lower the retries by one and add to the guessed letter list
+        guessed_letters.textContent += char + " ";
+        triedLetters += char;
+
+        tryRemains--;
+        retries.textContent = tryRemains;
+}
+
+
+// calculate letter indices of all letters matched in the guess word.
 
 function matchLetters(char) {
     var index = 0;
@@ -68,6 +88,7 @@ function matchLetters(char) {
     }
 }
 
+// check whether the user won or lost the game.
 
 function checkGameOver() {
     //// When there are no more _ in the display, game is over.
@@ -86,14 +107,6 @@ function checkGameOver() {
     }
 }
 
-function drawWrongGuess(char) {
-    // If the letter is not, lower the retries by one and add to the guessed letter list
-        guessed_letters.textContent += char + " ";
-        triedLetters += char;
-
-        tryRemains--;
-        retries.textContent = tryRemains;
-}
 
 // Handle event after each key is pressed
 document.onkeyup = function(event) {
